@@ -1,1 +1,1575 @@
+{% extends 'base.html.twig' %}
 
+{% block title %}{% trans %}Entraide Nationale{% endtrans %}{% endblock %}
+
+{% block body %}
+
+        {{ include('include/header.html.twig') }}
+        {{ include('include/side-bar.html.twig') }}
+        <div class="main-content-wrap d-flex flex-column">
+            <div class="main-content container">
+                <div class="breadcrumb">
+                    <h1 class="mr-2">{% trans %}Situation sociale{% endtrans %} </h1>
+
+                </div>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link  font-weight-bold" id="nav-inscription-tab"
+                           href="{% if id > 0 %} {{ path('inscription',{id: id}) }}{% else %}#{% endif %}" role="tab" aria-controls="nav-inscription" aria-selected="true">{% trans %}Inscription{% endtrans %}</a>
+                        <a class="nav-item nav-link font-weight-bold" id="nav-inscription-tab"
+                           href="{% if id > 0 %} {{ path('inscription_famille',{id: id}) }}{% else %}#{% endif %}" role="tab" aria-controls="nav-inscription" aria-selected="true">{% trans %}Famille{% endtrans %}</a>
+                        <a class="nav-item nav-link font-weight-bold" id="nav-inscription-tab"
+                           href="{% if id > 0 %} {{ path('inscription_besoin',{id: id}) }}{% else %}#{% endif %}" role="tab" aria-controls="nav-inscription" aria-selected="true">{% trans %}Besoin exprimé{% endtrans %}</a>
+                        <a class="nav-item nav-link font-weight-bold" id="nav-prestation-tab"
+                           href="{% if id > 0 %} {{ path('inscription_prestation',{id: id}) }}{% else %}#{% endif %}" role="tab" aria-controls="nav-prestation" aria-selected="false">{% trans %}Mes prestations{% endtrans %}</a>
+                        <a class="nav-item nav-link active font-weight-bold" id="nav-socio-tab"
+                           href="#"
+                           role="tab" aria-controls="nav-socio" aria-selected="false">{% trans %}Situation sociale{% endtrans %}</a>
+                        <a class="nav-item nav-link font-weight-bold" id="nav-sante-tab"
+                           href="{% if id > 0 %} {{ path('inscription_medicale',{id: id}) }}{% else %}#{% endif %}"
+                           role="tab" aria-controls="nav-sante" aria-selected="false">{% trans %}Situation Médicale{% endtrans %}</a>
+                        <a class="nav-item nav-link font-weight-bold" id="nav-judiciare-tab"
+                           href="{% if id > 0 %} {{ path('inscription_judiciaire',{id: id}) }}{% else %}#{% endif %}" role="tab" aria-controls="nav-judiciare" aria-selected="false">{% trans %}Situation Judiciaire{% endtrans %}
+                            </a>
+
+                        <a class="nav-item nav-link font-weight-bold" id="nav-social-tab"
+                           href="{% if id > 0 %} {{ path('inscription_dossier',{id: id}) }}{% else %}#{% endif %}" role="tab" aria-controls="nav-social" aria-selected="false">{% trans %}Dossier{% endtrans %} </a>
+                        <a class="nav-item nav-link font-weight-bold" id="nav-inscription-tab"
+                           href="{% if id > 0 %} {{ path('inscription_accomp',{id: id}) }}{% else %}#{% endif %}" role="tab" aria-controls="nav-inscription" aria-selected="true">{% trans %}Contact{% endtrans %}</a>
+                    </div>
+                </nav>
+                <div class="tab-content p-0" id="nav-tabContent">
+
+
+                    <div class="tab-pane fade show active" id="nav-socio" role="tabpanel"
+                         aria-labelledby="nav-socio-tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="pl-3 pr-3 pb-2 pt-1 background-color-light br-10 mt-2">
+
+                                    {{ form_start(form) }}
+                                    <div class="row p-2 mt-2">
+                                        <div class="col-md-4 form-group">
+                                            <label>{% trans %}Situation de difficulté{% endtrans %} :</label>
+                                            {{ form_widget(form.type, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type) }}
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4 form-group type_1">
+                                            <label>{% trans %}Type de violence{% endtrans %} :</label>
+                                            {{ form_widget(form.type_violence, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_violence) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 form-group">
+                                            <label>{% trans %}Degré{% endtrans %} :</label>
+                                            {{ form_widget(form.degre, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.degre) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group acte" style="display: none">
+                                            <label>{% trans %}violence acte{% endtrans %} :</label>
+                                            {{ form_widget(form.type_violence_acte, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_violence_acte) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group physique" style="display: none">
+                                            <label>{% trans %}violence physique{% endtrans %} :</label>
+                                            {{ form_widget(form.type_violence_physique, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_violence_physique) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group attitude" style="display: none">
+                                            <label>{% trans %}violence attitude{% endtrans %} :</label>
+                                            {{ form_widget(form.type_violence_attitude, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_violence_attitude) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 form-group attitude_autre" style="display: none">
+                                            <label>{% trans %}violence attitude autre{% endtrans %} :</label>
+                                            {{ form_widget(form.type_violence_attitude_autre, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_violence_attitude_autre) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group physique_autre" style="display: none">
+                                            <label>{% trans %}violence physique autre{% endtrans %} :</label>
+                                            {{ form_widget(form.type_violence_physique_autre, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_violence_physique_autre) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 form-group type_1">
+                                            <label>{% trans %}Source de violence{% endtrans %} :</label>
+                                            {{ form_widget(form.source_violence, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.source_violence) }}
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4 form-group type_1">
+                                            <label>{% trans %}Lieu de violence{% endtrans %} :</label>
+                                            {{ form_widget(form.lieu_violence, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.lieu_violence) }}
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4 form-group type_1">
+                                            <label>{% trans %}Date de violence{% endtrans %} :</label>
+                                            {{ form_widget(form.date_violence, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.date_violence) }}
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-4 form-group type_1">
+                                            <label>{% trans %}Violence répétée{% endtrans %} :</label>
+                                            {{ form_widget(form.repetee_violence, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.repetee_violence) }}
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4 form-group type_1">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_violence, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_violence) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_2">
+                                            <label>{% trans %}Types de maltraitance et d'exploitation{% endtrans %} :</label>
+                                            {{ form_widget(form.types_maltraitance, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.types_maltraitance) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 form-group type_2">
+                                            <label>{% trans %}Causes{% endtrans %} :</label>
+                                            {{ form_widget(form.victim_causes, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.victim_causes) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 form-group type_2">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_victim, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_victim) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_3">
+                                            <label>{% trans %}Durée{% endtrans %} :</label>
+                                            {{ form_widget(form.rue_duree, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.rue_duree) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 form-group type_3">
+                                            <label>{% trans %}Modalités de vie dans la rue{% endtrans %} :</label>
+                                            {{ form_widget(form.rue_modalite, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.rue_modalite) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 form-group type_3">
+                                            <label>{% trans %}Causes{% endtrans %} :</label>
+                                            {{ form_widget(form.rue_causes, {'label':false,'attr': {'class': 'form-control selectize'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.rue_causes) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 form-group type_3">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_rue, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_rue) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_4">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_eloignement, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_eloignement) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_5">
+                                            <label>{% trans %}Durée{% endtrans %} :</label>
+                                            {{ form_widget(form.mendicite_duree, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.mendicite_duree) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_5">
+                                            <label>{% trans %}Causes{% endtrans %} :</label>
+                                            {{ form_widget(form.mendicite_causes, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.mendicite_causes) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_5">
+                                            <label>{% trans %}Lieu{% endtrans %} :</label>
+                                            {{ form_widget(form.mendicite_lieu, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.mendicite_lieu) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_5">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_mendicite, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_mendicite) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_6">
+                                            <label>{% trans %}Motif{% endtrans %} :</label>
+                                            {{ form_widget(form.civil_motif, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.civil_motif) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group civil_autre_motif" style="display: none">
+                                            <label>{% trans %}Préciser motif{% endtrans %} :</label>
+                                            {{ form_widget(form.civil_autre_motif, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.civil_autre_motif) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_6">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_civil, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_civil) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_7">
+                                            <label>{% trans %}Type d’infraction{% endtrans %} :</label>
+                                            {{ form_widget(form.conflit_type_infraction, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.conflit_type_infraction) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_7">
+                                            <label>{% trans %}Jugement{% endtrans %} :</label>
+                                            {{ form_widget(form.conflit_jugement, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.conflit_jugement) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_7">
+                                            <label>{% trans %}Date d’infraction{% endtrans %} :</label>
+                                            {{ form_widget(form.conflit_date, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.conflit_date) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_7">
+                                            <label>{% trans %}Des antécédents judiciaires{% endtrans %} :</label>
+                                            {{ form_widget(form.conflit_judiciaire, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.conflit_judiciaire) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_7">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_conflit, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_conflit) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_8">
+                                            <label>{% trans %}Age d’abandon{% endtrans %} :</label>
+                                            {{ form_widget(form.abandon_age, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.abandon_age) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_8 ">
+                                            <label>{% trans %}Causes{% endtrans %} :</label>
+                                            {{ form_widget(form.abandon_causes, {'label':false,'attr': {'class': 'form-control selectize'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.abandon_causes) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_8">
+                                            <label>{% trans %}Tuteur/tutrice{% endtrans %} :</label>
+                                            {{ form_widget(form.abandon_tutrice, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.abandon_tutrice) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_8">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_abandon, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_abandon) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_9">
+                                            <label>{% trans %}Type d'handicap{% endtrans %} :</label>
+                                            {{ form_widget(form.type_handicap, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_handicap) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_mental_handicap">
+                                            <label>{% trans %}Préciser type mental{% endtrans %} :</label>
+                                            {{ form_widget(form.type_mental_handicap, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_mental_handicap) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group autre_type_mental_handicap">
+                                            <label>{% trans %}Préciser autre type mental{% endtrans %} :</label>
+                                            {{ form_widget(form.autre_type_mental_handicap, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.autre_type_mental_handicap) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_9">
+                                            <label>{% trans %}Durée{% endtrans %} :</label>
+                                            {{ form_widget(form.handicap_duree, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.handicap_duree) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_9">
+                                            <label>{% trans %}Cause{% endtrans %} :</label>
+                                            {{ form_widget(form.handicap_causes, {'label':false,'attr': {'class': 'form-control selectize'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.handicap_causes) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_9">
+                                            <label>{% trans %}Degré{% endtrans %} :</label>
+                                            {{ form_widget(form.handicap_degre, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.handicap_degre) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_9">
+                                            <label>{% trans %}AVC/ auxiliaire de vie scolaire ou sociale{% endtrans %} :</label>
+                                            {{ form_widget(form.handicap_avx, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.handicap_avx) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_9">
+                                            <label>{% trans %}Aménagements raisonnables requis/Accessibilités{% endtrans %} :</label>
+                                            {{ form_widget(form.handicap_requis, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.handicap_requis) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_9">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_handicap, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_handicap) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_10">
+                                            <label>{% trans %}Migrant/réfugié{% endtrans %} :</label>
+                                            {{ form_widget(form.migrant, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.migrant) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_10">
+                                            <label>{% trans %}Causes{% endtrans %} :</label>
+                                            {{ form_widget(form.migrant_causes, {'label':false,'attr': {'class': 'form-control selectize'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.migrant_causes) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group migrant_date">
+                                            <label>{% trans %}Date de régularisation{% endtrans %} :</label>
+                                            {{ form_widget(form.migrant_date, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.migrant_date) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group migrant_date">
+                                            <label>{% trans %}Carte{% endtrans %} :</label>
+                                            {{ form_widget(form.migrant_cart, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.migrant_cart) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_10">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_migrant, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_migrant) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_11">
+                                            <label>{% trans %}Type d’addiction{% endtrans %} :</label>
+                                            {{ form_widget(form.type_addiction, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_addiction) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_11">
+                                            <label>{% trans %}Causes{% endtrans %} :</label>
+                                            {{ form_widget(form.addiction_causes, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.addiction_causes) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_11">
+                                            <label>{% trans %}Date début d’addiction{% endtrans %} :</label>
+                                            {{ form_widget(form.addiction_date, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.addiction_date) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_11">
+                                            <label>{% trans %}Fréquence{% endtrans %} :</label>
+                                            {{ form_widget(form.addiction_frequence, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.addiction_frequence) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_11">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_addiction, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_addiction) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_12">
+                                            <label>{% trans %}Type de difficulté{% endtrans %} :</label>
+                                            {{ form_widget(form.type_difficulte, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.type_difficulte) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_12">
+                                            <label>{% trans %}Causes{% endtrans %} :</label>
+                                            {{ form_widget(form.difficulte_causes, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.difficulte_causes) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_12">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_difficulte, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_difficulte) }}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4 form-group type_13">
+                                            <label>{% trans %}Préciser situation de difficulté{% endtrans %} :</label>
+                                            {{ form_widget(form.situation_autre, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.situation_autre) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 form-group type_13">
+                                            <label>{% trans %}Observation{% endtrans %} :</label>
+                                            {{ form_widget(form.observation_autre, {'label':false,'attr': {'class': 'form-control'}}) }}
+                                            <div class="error">
+                                                {{ form_errors(form.observation_autre) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <label>&nbsp;</label>
+                                            <button type="submit" class="btn btn-success font-weight-bold btn-block"><i
+                                                        class="i-Add mr-1 font-weight-bold"></i>{% trans %}Ajouter{% endtrans %}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {{ form_end(form) }}
+                                </div>
+                                <div class="p-4 mt-2 background-color-light br-10">
+                                    <div class="table-responsive">
+                                        <table class="table m-0" id="user_table">
+                                            <thead>
+                                            <tr class="no-border text-left">
+                                                <th scope="col">{% trans %}Situation de difficulté{% endtrans %}</th>
+                                                <th scope="col">{% trans %}Observation{% endtrans %}</th>
+                                                <th scope="col">{% trans %}Action{% endtrans %}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for sociale in beneficier.situationSocials %}
+                                                <tr class="text-left">
+
+                                                    <td>
+                                                        {% if sociale.type  == 1 %}
+                                                            Victime de violence
+                                                        {% endif %}
+                                                        {% if sociale.type  == 2 %}
+                                                            Victime de tous types de maltraitance et d'exploitation
+                                                        {% endif %}
+                                                        {% if sociale.type  == 3 %}
+                                                            En situation de rue
+                                                        {% endif %}
+                                                        {% if sociale.type  == 4 %}
+                                                            Eloignement des guichets de prise en charge et des infrastructures de base
+                                                        {% endif %}
+                                                        {% if sociale.type  == 5 %}
+                                                            En situation de mendicité
+                                                        {% endif %}
+                                                        {% if sociale.type  == 6 %}
+                                                            Non enregistré à l’état civil
+                                                        {% endif %}
+                                                        {% if sociale.type  == 7 %}
+                                                            En conflit avec la loi
+                                                        {% endif %}
+                                                        {% if sociale.type  == 8 %}
+                                                            Enfant abondonné
+                                                        {% endif %}
+                                                        {% if sociale.type  == 9 %}
+                                                            En situation d'handicap
+                                                        {% endif %}
+                                                        {% if sociale.type  == 10 %}
+                                                            Migrant-e/réfugié-e
+                                                        {% endif %}
+                                                        {% if sociale.type  == 11 %}
+                                                            En situation d'addiction
+                                                        {% endif %}
+                                                        {% if sociale.type  == 12 %}
+                                                            En situation de difficultés de scolarisation
+                                                        {% endif %}
+                                                        {% if sociale.type  == 13 %}
+                                                            Autre
+                                                        {% endif %}
+
+                                                    </td>
+
+                                                    <td>
+                                                        {% if sociale.type  == 1 %}
+                                                             {{ sociale.observationViolence }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 2 %}
+                                                            {{ sociale.observationVictim }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 3 %}
+                                                            {{ sociale.observationRue }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 4 %}
+                                                            {{ sociale.observationEloignement }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 5 %}
+                                                            {{ sociale.observationMendicite }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 6 %}
+                                                            {{ sociale.observationCivil }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 7 %}
+                                                            {{ sociale.observationConflit }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 8 %}
+                                                            {{ sociale.observationAbandon }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 9 %}
+                                                            {{ sociale.observationHandicap }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 10 %}
+                                                            {{ sociale.observationMigrant }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 11 %}
+                                                            {{ sociale.observationAddiction }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 12 %}
+                                                            {{ sociale.observationDifficulte }}
+                                                        {% endif %}
+                                                        {% if sociale.type  == 13 %}
+                                                            {{ sociale.observationAutre }}
+                                                        {% endif %}
+
+                                                    </td>
+
+                                                    <td width="15%">
+                                                        <a class="text-danger mr-2" onclick="if (!confirm('Êtes-vous sûr de vouloir supprimer ?')){return false;}" href="{{ path('d_social',{id: sociale.id}) }}"><i
+                                                                    class="nav-icon i-Close-Window font-weight-bold"></i></a>
+
+<a onclick="edit('{{ sociale.id }}','{{ sociale.observationViolence }}','{{ sociale.observationVictim }}','{{ sociale.observationRue }}','{{ sociale.observationEloignement }}','{{ sociale.observationMendicite | json_encode() }}','{{ sociale.observationConflit | json_encode() }}','{{ sociale.observationAbandon }}','{{ sociale.observationHandicap }}',  {{ sociale.observationMigrant }} ,{{ sociale.observationAddiction }}, {{ sociale.observationDifficulte }} , {{ sociale.observationAutre }} ,'{{ path('edit_inscription_sociale',{id: sociale.id}) }}')" class="text-info mr-2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<i class="nav-icon i-Pen-2 font-weight-bold"></i>
+</a>
+
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            {{ include('include/footer.html.twig') }}
+        </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+            //////////////////////////
+
+            $('.selectize').selectize({});
+
+            if ($('#situation_sociale_type').val() == '1') {
+                $('.type_1').show();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+
+                if ($('#situation_sociale_type_violence').val() == 'Violence sexuelle') {
+                    $('.acte').show();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                }
+                else if ($('#situation_sociale_type_violence').val() == 'Violence physique') {
+                    $('.acte').hide();
+                    $('.physique').show();
+                    if ($('#situation_sociale_type_violence_physique').val() == 'Autre'){
+                        $('.physique_autre').show();
+                    }else {
+                        $('.physique_autre').hide();
+                    }
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                }
+
+                else if ($('#situation_sociale_type_violence').val() == 'Violence psychologique') {
+                    $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').show();
+                    if ($('#situation_sociale_type_violence_attitude').val() == 'Autre'){
+                        $('.attitude_autre').show();
+                    }else {
+                        $('.attitude_autre').hide();
+                    }
+                }
+                else {
+                    $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                }
+            }
+            if ($('#situation_sociale_type').val() == '2') {
+                $('.type_2').show();
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '3') {
+                $('.type_3').show();
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '4') {
+                $('.type_4').show();
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '5') {
+                $('.type_5').show();
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '6') {
+                $('.type_6').show();
+                if ($('#situation_sociale_civil_motif').val() == '5'){
+                    $('.civil_autre_motif').show();
+                }else {
+                    $('.civil_autre_motif').hide();
+                }
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '7') {
+                $('.type_7').show();
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '8') {
+                $('.type_8').show();
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '9') {
+                $('.type_9').show();
+                if ($('#situation_sociale_type_handicap').val() == 'Mental') {
+                    $('.type_mental_handicap').show();
+                    if ($('#situation_sociale_type_mental_handicap').val() == 'Autre') {
+                        $('.autre_type_mental_handicap').show();
+                    } else {
+                        $('.autre_type_mental_handicap').hide();
+                    }
+                }
+                else {
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                }
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '10') {
+                $('.type_10').show();
+                if ($('#situation_sociale_migrant').val() == 'Migrant-e') {
+                    $('.migrant_date').show();
+                }
+                else {
+                    $('.migrant_date').hide();
+                }
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_11').hide();
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '11') {
+                $('.type_11').show();
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_12').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '12') {
+                $('.type_12').show();
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_13').hide();
+            }
+            if ($('#situation_sociale_type').val() == '13') {
+                $('.type_13').show();
+                $('.type_1').hide();
+                  $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                $('.type_2').hide();
+                $('.type_3').hide();
+                $('.type_4').hide();
+                $('.type_5').hide();
+                $('.type_6').hide();
+                $('.civil_autre_motif').hide();
+                $('.type_7').hide();
+                $('.type_8').hide();
+                $('.type_9').hide();
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                $('.type_10').hide();
+                                    $('.migrant_date').hide();
+
+                $('.type_11').hide();
+                $('.type_12').hide();
+            }
+
+            $('#situation_sociale_type').change(function () {
+
+                if ($(this).val() == '1') {
+                    $('.type_1').show();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                    if ($('#situation_sociale_type_violence').val() == 'Violence sexuelle') {
+                        $('.acte').show();
+                        $('.physique').hide();
+                        $('.physique_autre').hide();
+                        $('.attitude').hide();
+                        $('.attitude_autre').hide();
+                    }
+                    else if ($('#situation_sociale_type_violence').val() == 'Violence physique') {
+                        $('.acte').hide();
+                        $('.physique').show();
+                        if ($('#situation_sociale_type_violence_physique').val() == 'Autre'){
+                        $('.physique_autre').show();
+                    }else {
+                        $('.physique_autre').hide();
+                    }
+                        $('.attitude').hide();
+                        $('.attitude_autre').hide();
+                    }
+
+                    else if ($('#situation_sociale_type_violence').val() == 'Violence psychologique') {
+                        $('.acte').hide();
+                        $('.physique').hide();
+                        $('.physique_autre').hide();
+                        $('.attitude').show();
+                        if ($('#situation_sociale_type_violence_attitude').val() == 'Autre'){
+                        $('.attitude_autre').show();
+                    }else {
+                        $('.attitude_autre').hide();
+                    }
+                    }
+                    else {
+                        $('.acte').hide();
+                        $('.physique').hide();
+                        $('.physique_autre').hide();
+                        $('.attitude').hide();
+                        $('.attitude_autre').hide();
+                    }
+                }
+                if ($(this).val() == '2') {
+                    $('.type_2').show();
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '3') {
+                    $('.type_3').show();
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '4') {
+                    $('.type_4').show();
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '5') {
+                    $('.type_5').show();
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '6') {
+                    $('.type_6').show();
+                    if ($('#situation_sociale_civil_motif').val() == '5'){
+                        $('.civil_autre_motif').show();
+                    }else {
+                        $('.civil_autre_motif').hide();
+                    }
+
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '7') {
+                    $('.type_7').show();
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '8') {
+                    $('.type_8').show();
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '9') {
+                    $('.type_9').show();
+                    if ($('#situation_sociale_type_handicap').val() == 'Mental') {
+                        $('.type_mental_handicap').show();
+                        if ($('#situation_sociale_type_mental_handicap').val() == 'Autre') {
+                            $('.autre_type_mental_handicap').show();
+                        } else {
+                            $('.autre_type_mental_handicap').hide();
+                        }
+                    }
+                    else {
+                        $('.type_mental_handicap').hide();
+                        $('.autre_type_mental_handicap').hide();
+                    }
+
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_10').hide();
+                    $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '10') {
+                    $('.type_10').show();
+                    if ($('#situation_sociale_migrant').val() == 'Migrant-e') {
+                        $('.migrant_date').show();
+                    }
+                    else {
+                        $('.migrant_date').hide();
+                    }
+
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '11') {
+                    $('.type_11').show();
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_12').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '12') {
+                    $('.type_12').show();
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                    $('.type_10').hide();
+                                        $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_13').hide();
+                }
+                if ($(this).val() == '13') {
+                    $('.type_13').show();
+                    $('.type_1').hide();
+                      $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                    $('.type_2').hide();
+                    $('.type_3').hide();
+                    $('.type_4').hide();
+                    $('.type_5').hide();
+                    $('.type_6').hide();
+                    $('.civil_autre_motif').hide();
+                    $('.type_7').hide();
+                    $('.type_8').hide();
+                    $('.type_9').hide();
+                        $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+
+                    $('.type_10').hide();
+                    $('.migrant_date').hide();
+
+                    $('.type_11').hide();
+                    $('.type_12').hide();
+                }
+            });
+
+
+            $('#situation_sociale_type_violence').change(function () {
+
+                if ($(this).val() == 'Violence sexuelle') {
+                    $('.acte').show();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                }
+                else if ($(this).val() == 'Violence physique') {
+                    $('.acte').hide();
+                    $('.physique').show();
+                    if ($('#situation_sociale_type_violence_physique').val() == 'Autre'){
+                        $('.physique_autre').show();
+                    }else {
+                        $('.physique_autre').hide();
+                    }
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                }
+
+                else if ($(this).val() == 'Violence psychologique') {
+                    $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').show();
+                    if ($('#situation_sociale_type_violence_attitude').val() == 'Autre'){
+                        $('.attitude_autre').show();
+                    }else {
+                        $('.attitude_autre').hide();
+                    }
+
+
+
+                }
+                else {
+                    $('.acte').hide();
+                    $('.physique').hide();
+                    $('.physique_autre').hide();
+                    $('.attitude').hide();
+                    $('.attitude_autre').hide();
+                }
+            });
+
+            $('#situation_sociale_type_handicap').change(function () {
+
+                if ($(this).val() == 'Mental') {
+                    $('.type_mental_handicap').show();
+                    if ($('#situation_sociale_type_mental_handicap').val() == 'Autre') {
+                        $('.autre_type_mental_handicap').show();
+                    } else {
+                        $('.autre_type_mental_handicap').hide();
+                    }
+
+                }
+
+                else {
+                    $('.type_mental_handicap').hide();
+                    $('.autre_type_mental_handicap').hide();
+                }
+            });
+            $('#situation_sociale_type_mental_handicap').change(function () {
+                if ($(this).val() == 'Autre'){
+                    $('.autre_type_mental_handicap').show();
+                }else {
+                    $('.autre_type_mental_handicap').hide();
+                }
+            })
+
+            $('#situation_sociale_type_violence_physique').change(function () {
+                if ($(this).val() == 'Autre'){
+                    $('.physique_autre').show();
+                }else {
+                    $('.physique_autre').hide();
+                }
+            })
+
+            $('#situation_sociale_migrant').change(function () {
+                if ($(this).val() == 'Migrant-e'){
+                    $('.migrant_date').show();
+                }else {
+                    $('.migrant_date').hide();
+                }
+            })
+            $('#situation_sociale_type_violence_attitude').change(function () {
+                if ($(this).val() == 'Autre'){
+                    $('.attitude_autre').show();
+                }else {
+                    $('.attitude_autre').hide();
+                }
+            })
+            $('#situation_sociale_civil_motif').change(function () {
+                if ($(this).val() == '5'){
+                    $('.civil_autre_motif').show();
+                }else {
+                    $('.civil_autre_motif').hide();
+                }
+            })
+
+
+
+
+        });
+
+function edit(id, type, type_violence, degre, type_violence_acte, type_violence_physique, type_violence_attitude, source_violence, lieu_violence, date_violence , repetee_violence ,observation_violence , types_maltraitance , victim_causes , observation_victim, path) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+            $("form[name='beneficier_prestation']").attr('action', path);
+            $('#beneficier_prestation_id_object').val(id);
+            $('#beneficier_prestation_etablissement').val(etablissement);
+            ajaxEtablissement(programme, prestation);
+            $('#beneficier_prestation_orientation').val(orientation);
+            $select_interne[0].selectize.setValue(JSON.parse(interne));
+            $select_extern[0].selectize.setValue(JSON.parse(externe));
+            initForm();
+            $('#beneficier_prestation_date_debut').val(date);
+            $('#beneficier_prestation_statut_ptrestation').val(ptrestation);
+            $('#beneficier_prestation_description').val(description);
+        }
+
+    </script>
+
+{% endblock %}
